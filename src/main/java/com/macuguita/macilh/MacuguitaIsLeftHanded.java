@@ -20,10 +20,16 @@ public class MacuguitaIsLeftHanded implements ClientModInitializer {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (client.getSession() != null) {
 			try {
-				// Convert session UUID (no dashes) into a proper format
-				UUID playerUUID = UUID.fromString(client.getSession().getUuid().replaceFirst(
-						"(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"
-				));
+				// Check for the correct method to retrieve UUID
+				String uuidString = String.valueOf(client.getSession().getUuidOrNull());
+
+				if (uuidString == null || uuidString.isEmpty()) {
+					LOGGER.error("Failed to retrieve player UUID.");
+					return;
+				}
+
+				// Convert UUID format correctly
+				UUID playerUUID = UUID.fromString(String.valueOf(client.getSession().getUuidOrNull()));
 
 				if (MACUGUITA_UUID.equals(playerUUID)) {
 					LOGGER.info("Player is Macuguita! Applying left-handed default.");
@@ -31,7 +37,7 @@ public class MacuguitaIsLeftHanded implements ClientModInitializer {
 					LOGGER.info("Player is NOT Macuguita.");
 				}
 			} catch (IllegalArgumentException e) {
-				LOGGER.error("Invalid UUID format: {}", client.getSession().getUuid(), e);
+				LOGGER.error("Invalid UUID format or missing UUID.");
 			}
 		} else {
 			LOGGER.warn("Could not retrieve player UUID - session is null.");

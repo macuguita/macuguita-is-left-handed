@@ -20,9 +20,7 @@ public class GameOptionsMixin {
 		if (client != null && client.getSession() != null) {
 			try {
 				// Convert UUID string (without dashes) into proper format
-				UUID playerUUID = UUID.fromString(client.getSession().getUuid().replaceFirst(
-						"(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"
-				));
+				UUID playerUUID = UUID.fromString(String.valueOf(client.getSession().getUuidOrNull()));
 
 				if (MacuguitaIsLeftHanded.MACUGUITA_UUID.equals(playerUUID)) {
 					GameOptions options = (GameOptions) (Object) this;
