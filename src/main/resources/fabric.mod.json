@@ -8,7 +8,8 @@
 		"macuguita"
 	],
 	"contact": {
-		"homepage": "macuguita.com"
+		"homepage": "macuguita.com",
+		"sources": "https://github.com/macuguita/macuguita-is-left-handed"
 	},
 	"license": "MIT",
 	"icon": "assets/macilh/icon.png",
