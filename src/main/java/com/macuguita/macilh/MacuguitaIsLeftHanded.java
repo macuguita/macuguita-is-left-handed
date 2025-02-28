@@ -14,8 +14,6 @@ public class MacuguitaIsLeftHanded implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		LOGGER.info("Hello Fabric world!");
-
 		// Get the player's UUID safely
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (client.getSession() != null) {
@@ -32,9 +30,7 @@ public class MacuguitaIsLeftHanded implements ClientModInitializer {
 				UUID playerUUID = UUID.fromString(String.valueOf(client.getSession().getUuidOrNull()));
 
 				if (MACUGUITA_UUID.equals(playerUUID)) {
-					LOGGER.info("Player is Macuguita! Applying left-handed default.");
-				} else {
-					LOGGER.info("Player is NOT Macuguita.");
+					LOGGER.info("Player is macuguita! Applying left-handed default.");
 				}
 			} catch (IllegalArgumentException e) {
 				LOGGER.error("Invalid UUID format or missing UUID.");
